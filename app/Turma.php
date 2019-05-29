@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Turma extends Model
 {
-    protected $fillable = ['name', 'description', 'creator_id'];
+    protected $fillable = ['name', 'description', 'creator_id', 'turno_id', 'semestre_id', 'curso_id'];
 
     public function getNameLinkAttribute()
     {
@@ -25,5 +25,25 @@ class Turma extends Model
     public function creator()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function curso()
+    {
+        return $this->belongsTo(Curso::class);
+    }
+
+    public function turno()
+    {
+        return $this->belongsTo(Turno::class);
+    }
+
+    public function semestre()
+    {
+        return $this->belongsTo(Semestre::class);
+    }
+
+    public function alunos()
+    {
+        return $this->belongsToMany(User::class, 'turma_aluno', 'turma_id', 'aluno_id');
     }
 }

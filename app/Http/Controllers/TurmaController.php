@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Turma;
 use Illuminate\Http\Request;
+use App\Curso;
+use App\Semestre;
+use App\Turno;
+use App\User;
 
 class TurmaController extends Controller
 {
@@ -30,7 +34,12 @@ class TurmaController extends Controller
     {
         $this->authorize('create', new Turma);
 
-        return view('turmas.create');
+        $cursos = Curso::all();
+        $semestres = Semestre::all();
+        $turnos = Turno::all();
+        $alunos = User::all()->where('perfil', 'aluno');
+
+        return view('turmas.create', compact('cursos', 'semestres', 'turnos', 'alunos'));
     }
 
     /**
@@ -46,7 +55,12 @@ class TurmaController extends Controller
         $newTurma = $request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
+            'curso_id' => 'required|max:255',
+            'semestre_id' => 'required|max:255',
+            'turno_id' => 'required|max:255',
+            
         ]);
+        var_dump($request);exit;
         $newTurma['creator_id'] = auth()->id();
 
         $turma = Turma::create($newTurma);
@@ -75,7 +89,11 @@ class TurmaController extends Controller
     {
         $this->authorize('update', $turma);
 
-        return view('turmas.edit', compact('turma'));
+        $cursos = Curso::all();
+        $semestres = Semestre::all();
+        $turnos = Turno::all();
+
+        return view('turmas.edit', compact('turma', 'cursos', 'semestres', 'turnos'));
     }
 
     /**
@@ -92,6 +110,10 @@ class TurmaController extends Controller
         $turmaData = $request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
+            'curso_id' => 'required|max:255',
+            'semestre_id' => 'required|max:255',
+            'turno_id' => 'required|max:255',
+            
         ]);
         $turma->update($turmaData);
 

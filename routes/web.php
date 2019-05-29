@@ -48,3 +48,8 @@ Route::resource('turmas', 'TurmaController');
  * Projetos Routes
  */
 Route::resource('projetos', 'ProjetoController');
+
+/*
+ * Questionarios Routes
+ */
+Route::resource('questionarios', 'QuestionarioController');

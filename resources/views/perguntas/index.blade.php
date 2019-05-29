@@ -35,21 +35,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($perguntas as $key => $perguntas)
+                    @foreach($perguntas as $key => $pergunta)
                     <tr>
-                        <td class="text-center">{{ $perguntas->firstItem() + $key }}</td>
-                        <td>{!! $perguntas->name_link !!}</td>
-                        <td>{{ $perguntas->description }}</td>
+                        <td class="text-center">{{ $pergunta->id }}</td>
+                        <td>{!! $pergunta->name_link !!}</td>
+                        <td>{{ $pergunta->description }}</td>
                         <td class="text-center">
-                            @can('view', $perguntas)
-                                <a href="{{ route('perguntas.show', $perguntas) }}" id="show-perguntas-{{ $perguntas->id }}">{{ __('app.show') }}</a>
+                            @can('view', $pergunta)
+                                <a href="{{ route('perguntas.show', $pergunta) }}" id="show-perguntas-{{ $pergunta->id }}">{{ __('app.show') }}</a>
                             @endcan
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="card-body">{{ $perguntas->appends(Request::except('page'))->render() }}</div>
+            {{-- <div class="card-body">{{ $perguntas->appends(Request::except('page'))->render() }}</div> --}}
         </div>
     </div>
 </div>

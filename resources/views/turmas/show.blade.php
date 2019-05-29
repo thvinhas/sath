@@ -12,6 +12,10 @@
                     <tbody>
                         <tr><td>{{ __('turma.name') }}</td><td>{{ $turma->name }}</td></tr>
                         <tr><td>{{ __('turma.description') }}</td><td>{{ $turma->description }}</td></tr>
+                        <tr><td>{{ __('turma.description') }}</td><td>{{ $turma->description }}</td></tr>
+                        <tr><td>Curso:</td><td>{{ $turma->curso->name }}</td></tr>
+                        <tr><td>Semestre</td><td>{{ $turma->semestre->name }}</td></tr>
+                        <tr><td>Turno</td><td>{{ $turma->turno->name }}</td></tr>
                     </tbody>
                 </table>
             </div>

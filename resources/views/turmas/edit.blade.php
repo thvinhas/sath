@@ -44,6 +44,35 @@
                         <textarea id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="4">{{ old('description', $turma->description) }}</textarea>
                         {!! $errors->first('description', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                     </div>
+                    <div class="form-group">
+                        <label for="curso" class="form-label">Curso</label>
+                        <select id="curso"  class="form-control{{ $errors->has('curso') ? ' is-invalid' : '' }}" name="curso_id" rows="4">
+                            @foreach($cursos as $curso)
+                              <option value="{{$curso->id}}" {{($turma->curso_id == $curso->id) ? 'selected': ''}}>{{$curso->name}}</option>
+                            @endforeach
+                        </select>
+                        {!! $errors->first('curso', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="semestre" class="form-label">Semestre</label>
+                        <select id="semestre"  class="form-control{{ $errors->has('semestre') ? ' is-invalid' : '' }}" name="semestre_id" rows="4">
+                            @foreach($semestres as $semestre)
+                              <option value="{{$semestre->id}}" {{($turma->semestre_id == $semestre->id) ? 'selected': ''}}>{{$semestre->name}}</option>
+                            @endforeach
+                        </select>
+                        {!! $errors->first('semestre', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="turno" class="form-label">Turno</label>
+                        <select id="turno"  class="form-control{{ $errors->has('turno') ? ' is-invalid' : '' }}" name="turno_id" rows="4">
+                            @foreach($turnos as $turno)
+                              <option value="{{$turno->id}}" {{($turma->turno_id == $turno->id) ? 'selected': ''}}>{{$turno->name}}</option>
+                            @endforeach
+                        </select>
+                        {!! $errors->first('turno', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                    </div>
                 </div>
                 <div class="card-footer">
                     <input type="submit" value="{{ __('turma.update') }}" class="btn btn-success">

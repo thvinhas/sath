@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Projeto;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Login;
+use App\User;
+use App\Turma;
 
 class ProjetoController extends Controller
 {
@@ -30,7 +33,11 @@ class ProjetoController extends Controller
     {
         $this->authorize('create', new Projeto);
 
-        return view('projetos.create');
+        $alunos = User::all()->where('perfil', 'aluno');
+        $professores = User::all()->where('perfil', 'professores');
+        $turmas = Turma::all();
+
+        return view('projetos.create', compact('alunos', 'professores', 'turmas'));
     }
 
     /**

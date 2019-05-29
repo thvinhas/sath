@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                   Sath
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -33,7 +33,46 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @guest
 
+                        @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                               Cadastro <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('cursos.index') }}">
+                                   Curso
+                                </a>
+
+                                <a class="dropdown-item" href="{{ route('semestres.index') }}">
+                                    Semestre
+                                 </a>
+
+                                 <a class="dropdown-item" href="{{ route('turnos.index') }}">
+                                    Turno
+                                 </a>
+
+                                 <a class="dropdown-item" href="{{ route('turmas.index') }}">
+                                    Turmas
+                                 </a>
+
+                                 <a class="dropdown-item" href="{{ route('perguntas.index') }}">
+                                    Preguntas
+                                 </a>
+
+                                 <a class="dropdown-item" href="{{ route('questionarios.index') }}">
+                                    Questionario
+                                 </a>
+
+                                 <a class="dropdown-item" href="{{ route('projetos.index') }}">
+                                    Projeto
+                                 </a>
+
+                            </div>
+                        </li>
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -66,6 +105,8 @@
                                     </form>
                                 </div>
                             </li>
+
+                           
                         @endguest
                     </ul>
                 </div>

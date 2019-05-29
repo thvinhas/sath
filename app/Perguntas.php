@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perguntas extends Model
 {
+    protected $table ='perguntas';
     protected $fillable = ['name', 'description', 'creator_id'];
 
     public function getNameLinkAttribute()
