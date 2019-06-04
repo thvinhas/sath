@@ -73,6 +73,16 @@
                         </select>
                         {!! $errors->first('turno', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                     </div>
+
+                    <div class="form-group">
+                        <label for="aluno" class="form-label">Alunos</label>
+                        <select id="aluno" multiple class="form-control{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="alunos[]" rows="4">
+                            @foreach($alunos as $aluno)
+                              <option value="{{$aluno->id}}" {{(in_array($aluno->id, $alunosSelected) ) ? 'selected' : ''}}>{{$aluno->name}}</option>
+                            @endforeach
+                        </select>
+                        {!! $errors->first('aluno', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                    </div>
                 </div>
                 <div class="card-footer">
                     <input type="submit" value="{{ __('turma.update') }}" class="btn btn-success">

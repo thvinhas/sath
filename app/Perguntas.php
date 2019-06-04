@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Console\Question\Question;
 
 class Perguntas extends Model
 {
@@ -26,5 +27,10 @@ class Perguntas extends Model
     public function creator()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function questionarios()
+    {
+        return $this->belongsToMany(Questionario::class, 'questionario_pergunta', 'pergunta_id', 'questonario_id');
     }
 }

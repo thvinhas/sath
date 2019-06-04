@@ -60,10 +60,12 @@ class TurmaController extends Controller
             'turno_id' => 'required|max:255',
             
         ]);
-        var_dump($request);exit;
+        // var_dump($request);exit;
         $newTurma['creator_id'] = auth()->id();
 
         $turma = Turma::create($newTurma);
+
+        $turma->alunos()->sync($request->get('alunos'));
 
         return redirect()->route('turmas.show', $turma);
     }
@@ -92,8 +94,13 @@ class TurmaController extends Controller
         $cursos = Curso::all();
         $semestres = Semestre::all();
         $turnos = Turno::all();
+        $alunos = User::all()->where('perfil', 'aluno');
 
-        return view('turmas.edit', compact('turma', 'cursos', 'semestres', 'turnos'));
+        $alunosSelected = $turma->alunos()->allRelatedIds()->toArray();
+
+        // var_dump($alunosSelected);exit();
+
+        return view('turmas.edit', compact('turma', 'cursos', 'semestres', 'turnos', 'alunos', 'alunosSelected'));
     }
 
     /**

@@ -36,6 +36,7 @@
                         @guest
 
                         @else
+                        @if (Auth::user()->perfil == 'administrador')
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                Cadastro <span class="caret"></span>
@@ -72,6 +73,22 @@
 
                             </div>
                         </li>
+                        
+                        @elseif(Auth::user()->perfil == 'professor')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('projetos.index') }}">Projetos</a>
+                          </li>
+
+                          
+                          @elseif(Auth::user()->perfil == 'aluno')
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('projetos.index') }}">Projetos</a>
+                            </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('questionarios.index') }}">Questionario</a>
+                            </li>
+                        @endif
+                       
                         @endguest
                     </ul>
 

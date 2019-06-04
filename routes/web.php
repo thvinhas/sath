@@ -48,6 +48,10 @@ Route::resource('turmas', 'TurmaController');
  * Projetos Routes
  */
 Route::resource('projetos', 'ProjetoController');
+Route::get('projetos-professor-edit', ['as' => 'projetos.professorEdit', 'uses' =>'ProjetoController@projetoProfessorEdit']);
+Route::patch('projetos-professor-update', ['as' => 'projetos.professorUpdate', 'uses' =>'ProjetoController@projetoProfessorUpdate']);
+Route::get('questionario-resposta', ['as' => 'questionario.respostas', 'uses' =>'QuestionarioController@questionarioResposta']);
+Route::post('Salvar-Resposta', ['as' => 'questionario.respostas-salvar', 'uses' =>'QuestionarioController@questionarioRespostaSalvar']);
 
 /*
  * Questionarios Routes

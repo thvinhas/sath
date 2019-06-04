@@ -6,6 +6,8 @@ use App\Questionario;
 use Illuminate\Http\Request;
 use App\Turma;
 use App\Perguntas;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class QuestionarioController extends Controller
 {
@@ -15,12 +17,27 @@ class QuestionarioController extends Controller
      * @return \Illuminate\View\View
      */
     public function index()
-    {
-        $questionarioQuery = Questionario::query();
-        $questionarioQuery->where('name', 'like', '%'.request('q').'%');
-        $questionarios = $questionarioQuery->paginate(25);
+    {   
+        if(Auth::user()->perfil == 'administrador') {
+            $questionarioQuery = Questionario::query();
+            $questionarioQuery->where('name', 'like', '%'.request('q').'%');
+            $questionarios = $questionarioQuery->paginate(25);
+            return view('questionarios.index', compact('questionarios'));
+        } else if(Auth::user()->perfil == 'aluno') {
+            $turmas = Auth::user()->turmas;
+            $questionarios=[];
+            // var_dump($turmas);exit
+            foreach($turmas as $turma) {
+                $questionarioQuery = Questionario::query();
+                $questionarioQuery->where('turma_id', $turma->id);
+                $questionarios = $questionarioQuery->paginate(25);
 
-        return view('questionarios.index', compact('questionarios'));
+            }
+            
+            return view('questionarios.aluno', compact('questionarios'));
+        }
+
+      
     }
 
     /**
@@ -48,13 +65,19 @@ class QuestionarioController extends Controller
     {
         $this->authorize('create', new Questionario);
 
+        
+
         $newQuestionario = $request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
+            'Turma_id'    => 'required|max:60',
         ]);
         $newQuestionario['creator_id'] = auth()->id();
 
         $questionario = Questionario::create($newQuestionario);
+
+        $questionario->perguntas()->sync($request->get('perguntas'));
+        // var_dump($questionario);exit();
 
         return redirect()->route('questionarios.show', $questionario);
     }
@@ -80,7 +103,12 @@ class QuestionarioController extends Controller
     {
         $this->authorize('update', $questionario);
 
-        return view('questionarios.edit', compact('questionario'));
+        $turmas = Turma::all();
+        $perguntas = Perguntas::all();
+
+        $perguntasSelected = $questionario->perguntas()->allRelatedIds()->toArray();
+
+        return view('questionarios.edit', compact('questionario', 'turmas', 'perguntas', 'perguntasSelected'));
     }
 
     /**
@@ -121,5 +149,23 @@ class QuestionarioController extends Controller
         }
 
         return back();
+    }
+
+    public function questionarioResposta(Request $request)
+    {
+        
+        $questionario = Questionario::findOrFail($request->get('id'));
+       
+        return view('questionarios.resposta', compact('questionario'));
+    }
+    
+    public function questionarioRespostaSalvar(Request $request)
+    {
+
+        var_dump($request->get('name'));exit;
+        
+        $questionario = Questionario::findOrFail($request->get('id'));
+       
+        return view('questionarios.resposta', compact('questionario'));
     }
 }

@@ -53,7 +53,7 @@
 
                     <div class="form-group">
                         <label for="aluno" class="form-label">Alunos</label>
-                        <select id="aluno" multiple class="form-control{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="aluno_id" rows="4">
+                        <select id="aluno" multiple class="form-control{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="alunos[]" rows="4">
                             @foreach($alunos as $aluno)
                               <option value="{{$aluno->id}}">{{$aluno->name}}</option>
                             @endforeach

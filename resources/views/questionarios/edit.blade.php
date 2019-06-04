@@ -44,6 +44,25 @@
                         <textarea id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" name="description" rows="4">{{ old('description', $questionario->description) }}</textarea>
                         {!! $errors->first('description', '<span class="invalid-feedback" role="alert">:message</span>') !!}
                     </div>
+                    <div class="form-group">
+                        <label for="turma" class="form-label">Turma</label>
+                        <select id="turma"  class="form-control{{ $errors->has('turma') ? ' is-invalid' : '' }}" name="Turma_id" rows="4">
+                            @foreach($turmas as $turma)
+                        <option value="{{$turma->id}} {{ ($turma->id == $questionario->turma_id) ? 'selected' : ''}}">{{$turma->name}}</option>
+                            @endforeach
+                        </select>
+                        {!! $errors->first('turma', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pergunta" class="form-label">Pergunta</label>
+                        <select id="pergunta" multiple class="form-control{{ $errors->has('pergunta') ? ' is-invalid' : '' }}" name="perguntas[]" rows="4">
+                            @foreach($perguntas as $pergunta)
+                              <option value="{{$pergunta->id}}"  {{(in_array($pergunta->id, $perguntasSelected) ) ? 'selected' : ''}}>{{$pergunta->name}}</option>
+                            @endforeach
+                        </select>
+                        {!! $errors->first('pergunta', '<span class="invalid-feedback" role="alert">:message</span>') !!}
+                    </div>
                 </div>
                 <div class="card-footer">
                     <input type="submit" value="{{ __('questionario.update') }}" class="btn btn-success">

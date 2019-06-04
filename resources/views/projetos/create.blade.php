@@ -32,7 +32,7 @@
 
                     <div class="form-group">
                         <label for="aluno" class="form-label">Alunos</label>
-                        <select id="aluno" multiple class="form-control{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="aluno_id" rows="4">
+                        <select id="aluno" multiple class="form-control{{ $errors->has('aluno') ? ' is-invalid' : '' }}" name="alunos[]" rows="4">
                             @foreach($alunos as $aluno)
                               <option value="{{$aluno->id}}">{{$aluno->name}}</option>
                             @endforeach
@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label for="professor" class="form-label">Professores</label>
-                        <select id="professor" multiple class="form-control{{ $errors->has('professor') ? ' is-invalid' : '' }}" name="professor_id" rows="4">
+                        <select id="professor" multiple class="form-control{{ $errors->has('professor') ? ' is-invalid' : '' }}" name="professores[]" rows="4">
                             @foreach($professores as $professor)
                               <option value="{{$professor->id}}">{{$professor->name}}</option>
                             @endforeach

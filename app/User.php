@@ -38,8 +38,18 @@ class User extends Authenticatable
     ];
 
 
-    public function alunos()
+    public function turmas()
     {
-        return $this->belongsToMany(User::class, 'turma_aluno', 'aluno_id', 'turma_id');
+        return $this->belongsToMany(Turma::class, 'turma_aluno', 'aluno_id', 'turma_id');
+    }
+
+    public function projetosProfessores()
+    {
+        return $this->belongsToMany(Projeto::class, 'projeto_professor', 'aluno_id', 'projeto_id');
+    }
+
+    public function projetosAlunos()
+    {
+        return $this->belongsToMany(Projeto::class, 'projeto_aluno', 'aluno_id', 'projeto_id');
     }
 }

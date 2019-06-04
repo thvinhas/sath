@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Login;
 use App\User;
 use App\Turma;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProjetoController extends Controller
 {
@@ -17,11 +19,19 @@ class ProjetoController extends Controller
      */
     public function index()
     {
-        $projetoQuery = Projeto::query();
-        $projetoQuery->where('name', 'like', '%'.request('q').'%');
-        $projetos = $projetoQuery->paginate(25);
-
-        return view('projetos.index', compact('projetos'));
+        // var_dump
+        if(Auth::user()->perfil == 'administrador') {
+            $projetoQuery = Projeto::query();
+            $projetoQuery->where('name', 'like', '%'.request('q').'%');
+            $projetos = $projetoQuery->paginate(25);
+            return view('projetos.index', compact('projetos'));
+        } else if(Auth::user()->perfil == 'professor') {
+            $projetos = Auth::user()->projetosAlunos;
+            return view('projetos.aluno', compact('projetos'));
+        }else if(Auth::user()->perfil == 'aluno') {
+            $projetos = Auth::user()->projetosAlunos;
+            return view('projetos.aluno', compact('projetos'));
+        }
     }
 
     /**
@@ -34,7 +44,7 @@ class ProjetoController extends Controller
         $this->authorize('create', new Projeto);
 
         $alunos = User::all()->where('perfil', 'aluno');
-        $professores = User::all()->where('perfil', 'professores');
+        $professores = User::all()->where('perfil', 'professor');
         $turmas = Turma::all();
 
         return view('projetos.create', compact('alunos', 'professores', 'turmas'));
@@ -53,10 +63,15 @@ class ProjetoController extends Controller
         $newProjeto = $request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
+            'turma_id'    => 'required',
         ]);
+
+
         $newProjeto['creator_id'] = auth()->id();
 
         $projeto = Projeto::create($newProjeto);
+        $projeto->professores()->sync($request->get('professores'));
+        $projeto->alunos()->sync($request->get('alunos'));
 
         return redirect()->route('projetos.show', $projeto);
     }
@@ -123,5 +138,52 @@ class ProjetoController extends Controller
         }
 
         return back();
+    }
+
+    public function projetoProfessorEdit(Request $request)
+    {
+        $id = $request->get('id');
+        // $this->authorize('update', $projeto);
+        $projeto = Projeto::findOrFail($id);
+        // var_dump($id);exit();
+
+        return view('projetos.professor-edit', compact('projeto'));
+    }
+
+    public function projetoProfessorUpdate(Request $request){
+        $idPrpjeto = $request->get('id_projeto');
+        $nota = $request->get('nota');
+
+       $hue =  DB::table('projeto_professor')
+            ->where('projeto_id', $idPrpjeto)
+            ->where('aluno_id', Auth::user()->id)
+            ->update(['media' =>  $nota]);
+
+
+            $projeto = Projeto::where('id', $idPrpjeto)->first();
+
+            // var_dump($projeto);exit();
+
+            $notas = $projeto->professores;
+            // var_dump($notas);exit();
+            $media = 0;
+            $qtdProfessores = 0;
+            foreach ($notas as $key => $nota) {
+                // var_dump($nota->pivot->media);exit();
+               $media += $nota->pivot->media;
+               $qtdProfessores++;
+            }
+
+            // var_dump($media);exit();
+
+            $data = $media/$qtdProfessores;
+            // var_dump($data);exit; 
+
+            DB::table('projetos')
+            ->where('id', $idPrpjeto)
+            ->update(['media' =>  $data]);
+
+            
+            return redirect('/projetos');
     }
 }

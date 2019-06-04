@@ -46,4 +46,14 @@ class Turma extends Model
     {
         return $this->belongsToMany(User::class, 'turma_aluno', 'turma_id', 'aluno_id');
     }
+
+    public function projetos()
+    {
+        return $this->hasMany(Projeto::class);
+    }
+
+    public function questionarios()
+    {
+        return $this->hasMany(Questionario::class, 'turma_id', 'id');
+    }
 }

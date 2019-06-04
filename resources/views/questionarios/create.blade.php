@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group">
                         <label for="turma" class="form-label">Turma</label>
-                        <select id="turma"  class="form-control{{ $errors->has('turma') ? ' is-invalid' : '' }}" name="turma_id" rows="4">
+                        <select id="turma"  class="form-control{{ $errors->has('turma') ? ' is-invalid' : '' }}" name="Turma_id" rows="4">
                             @foreach($turmas as $turma)
                               <option value="{{$turma->id}}">{{$turma->name}}</option>
                             @endforeach
@@ -32,7 +32,7 @@
 
                     <div class="form-group">
                         <label for="pergunta" class="form-label">Pergunta</label>
-                        <select id="pergunta" multiple class="form-control{{ $errors->has('pergunta') ? ' is-invalid' : '' }}" name="pergunta_id" rows="4">
+                        <select id="pergunta" multiple class="form-control{{ $errors->has('pergunta') ? ' is-invalid' : '' }}" name="perguntas[]" rows="4">
                             @foreach($perguntas as $pergunta)
                               <option value="{{$pergunta->id}}">{{$pergunta->name}}</option>
                             @endforeach
