@@ -8,6 +8,7 @@ use App\Turma;
 use App\Perguntas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Resultado;
 
 class QuestionarioController extends Controller
 {
@@ -161,11 +162,47 @@ class QuestionarioController extends Controller
     
     public function questionarioRespostaSalvar(Request $request)
     {
+        $perguntas = $request->get('name');
+        foreach ($perguntas as $key => $value) {
+            $resultado = new Resultado();
+            $resultado->pergunta_id = $key;
+            $resultado->Questionario_id = $request->get('questionario');
+            $resultado->Aluno_id = Auth::user()->id;
+            $resultado->resposta =$value;
+            $resultado->save();
 
-        var_dump($request->get('name'));exit;
-        
-        $questionario = Questionario::findOrFail($request->get('id'));
-       
-        return view('questionarios.resposta', compact('questionario'));
+        }
+
+        return redirect('/questionarios');
     }
+
+    public function relatorio(Request $request) {
+        $questionario = Questionario::findOrFail($request->get('id-questionario'));       
+
+            // var_dump($respostas);exit();
+            return view('questionarios.relatorio', compact('questionario') );
+    }
+
+    public function getDados(Request $request) {
+
+        $query = DB::table('resposta')
+            ->where('resposta.Questionario_id', $request->get('questionarioId'))
+            ->join('perguntas', 'resposta.id', '=', 'perguntas.id')
+            ->join('questionarios', 'resposta.id', '=', 'questionarios.id')
+            ->select('resposta.*', 'perguntas.name')
+            ->get();
+            // var_dump($query);exit();
+
+            $resposta = [];
+            foreach($query as $resultado) {
+                // var_dump($resultado);exit;
+                if(isset($resposta[$resultado->pergunta_id])) {
+                    $resposta[$resultado->pergunta_id]['resposta'] += $resultado->resposta;
+                }else {
+                    $resposta[$resultado->pergunta_id] = ['nome' => $resultado->name, 'resposta'=> $resultado->resposta];
+                }
+            }
+
+            return $resposta;
+    }                   
 }

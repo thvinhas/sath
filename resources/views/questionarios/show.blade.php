@@ -19,6 +19,7 @@
                 @can('update', $questionario)
                     <a href="{{ route('questionarios.edit', $questionario) }}" id="edit-questionario-{{ $questionario->id }}" class="btn btn-warning">{{ __('questionario.edit') }}</a>
                 @endcan
+                <a href="{{ route('questionario.relatorio', ['id-questionario'=> $questionario->id]) }}" class="btn btn-link">Relatorio do questionario</a>
                 <a href="{{ route('questionarios.index') }}" class="btn btn-link">{{ __('questionario.back_to_index') }}</a>
             </div>
         </div>

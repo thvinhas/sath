@@ -8,4 +8,5 @@ class TurmaAluno extends Model
 {
     protected $table ='perguntas';
     protected $fillable = ['turma_id', 'aluno_id'];
+    public $timestamps = false;
 }

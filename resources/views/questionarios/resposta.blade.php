@@ -9,6 +9,7 @@
         <div class="card-header">{{$questionario->name}}</div>
             <form method="POST" action="{{ route('questionario.respostas-salvar') }}" accept-charset="UTF-8">
                 {{ csrf_field() }}
+            <input type="hidden" name="questionario" value="{{$questionario->id}}">
                 <div class="card-body">
                     @foreach ($questionario->perguntas as $pergunta)
                     <div class="form-group">

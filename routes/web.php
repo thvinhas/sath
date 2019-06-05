@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
@@ -51,6 +51,9 @@ Route::resource('projetos', 'ProjetoController');
 Route::get('projetos-professor-edit', ['as' => 'projetos.professorEdit', 'uses' =>'ProjetoController@projetoProfessorEdit']);
 Route::patch('projetos-professor-update', ['as' => 'projetos.professorUpdate', 'uses' =>'ProjetoController@projetoProfessorUpdate']);
 Route::get('questionario-resposta', ['as' => 'questionario.respostas', 'uses' =>'QuestionarioController@questionarioResposta']);
+Route::get('relatoriosProjetos', ['as' => 'turma.relatorio', 'uses' =>'TurmaController@relatorio']);
+Route::get('relatoriosProjetos', ['as' => 'turma.getDados', 'uses' =>'QuestionarioController@getDados']);
+Route::get('relatoriosQuestionario', ['as' => 'questionario.relatorio', 'uses' =>'QuestionarioController@relatorio']);
 Route::post('Salvar-Resposta', ['as' => 'questionario.respostas-salvar', 'uses' =>'QuestionarioController@questionarioRespostaSalvar']);
 
 /*

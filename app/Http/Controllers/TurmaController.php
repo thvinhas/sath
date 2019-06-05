@@ -146,4 +146,30 @@ class TurmaController extends Controller
 
         return back();
     }
+
+    public function relatorio(Request $request)
+    {
+        $idTurma = $request->get('turma_id');
+
+        $turma = Turma::findOrFail($idTurma);
+
+        $projetos = [];
+        foreach ($turma->projetos as $projeto) {
+            $thisprojeto = array('nome'=> $projeto->name, 'media' => $projeto->media);
+            $professores= [];
+            foreach($projeto->professores as $professor ) {
+                $professores[] = $professor->name;
+            }
+            $alunos=[];
+            foreach($projeto->alunos as $aluno ) {
+                $alunos[] = $aluno->name;
+            }
+            $thisprojeto['professor'] = $professores;
+            $thisprojeto['aluno'] = $alunos;
+
+            $projetos[] = $thisprojeto;
+        }
+
+        return json_encode($projetos);
+    }
 }
