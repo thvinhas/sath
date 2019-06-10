@@ -8,11 +8,11 @@ return [
     'show_detail_title' => 'View :name :type detail',
 
     // Actions
-    'show'           => 'View Detail',
-    'edit'           => 'Edit',
-    'delete'         => 'Delete',
-    'cancel'         => 'Cancel',
-    'reset'          => 'Reset',
-    'delete_confirm' => 'Are you sure to delete this?',
-    'delete_confirm_button' => 'YES, delete it!',
+    'show'           => 'Ver mais',
+    'edit'           => 'Editar',
+    'delete'         => 'Deletar',
+    'cancel'         => 'Cancelar',
+    'reset'          => 'Restaurar',
+    'delete_confirm' => 'Tem certeza que deseja deletar?',
+    'delete_confirm_button' => 'SIM, deletar!',
 ];

@@ -11,7 +11,7 @@
                 <table class="table table-sm">
                     <tbody>
                         <tr><td>{{ __('perguntas.name') }}</td><td>{{ $perguntas->name }}</td></tr>
-                        <tr><td>{{ __('perguntas.description') }}</td><td>{{ $perguntas->description }}</td></tr>
+                        <!-- <tr><td>{{ __('perguntas.description') }}</td><td>{{ $perguntas->description }}</td></tr> -->
                     </tbody>
                 </table>
             </div>

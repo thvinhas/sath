@@ -21,7 +21,7 @@
 
 @section('script')
 <script>
-    var url = "{{route('turma.getDados', ['questionarioId'=> $questionario->id])}}";
+    var url = "{{route('questionario.getDados', ['questionarioId'=> $questionario->id])}}";
         var pergunta = new Array();
         var Labels = new Array();
         var resposta = new Array();

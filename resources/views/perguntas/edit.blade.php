@@ -19,7 +19,7 @@
                 <hr style="margin:0">
                 <div class="card-body text-danger">{{ __('perguntas.delete_confirm') }}</div>
                 <div class="card-footer">
-                    <form method="POST" action="{{ route('perguntas.destroy', $perguntas) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
+                    <form method="POST" action="{{ route('perguntas.destroy', $perguntas->id) }}" accept-charset="UTF-8" onsubmit="return confirm(&quot;{{ __('app.delete_confirm') }}&quot;)" class="del-form float-right" style="display: inline;">
                         {{ csrf_field() }} {{ method_field('delete') }}
                         <input name="perguntas_id" type="hidden" value="{{ $perguntas->id }}">
                         <button type="submit" class="btn btn-danger">{{ __('app.delete_confirm_button') }}</button>
@@ -31,7 +31,7 @@
         @else
         <div class="card">
             <div class="card-header">{{ __('perguntas.edit') }}</div>
-            <form method="POST" action="{{ route('perguntas.update', $perguntas) }}" accept-charset="UTF-8">
+            <form method="POST" action="{{ route('perguntas.update', $perguntas->id) }}" accept-charset="UTF-8">
                 {{ csrf_field() }} {{ method_field('patch') }}
                 <div class="card-body">
                     <div class="form-group">
@@ -49,7 +49,7 @@
                     <input type="submit" value="{{ __('perguntas.update') }}" class="btn btn-success">
                     <a href="{{ route('perguntas.show', $perguntas) }}" class="btn btn-link">{{ __('app.cancel') }}</a>
                     @can('delete', $perguntas)
-                        <a href="{{ route('perguntas.edit', [$perguntas, 'action' => 'delete']) }}" id="del-perguntas-{{ $perguntas->id }}" class="btn btn-danger float-right">{{ __('app.delete') }}</a>
+                        <a href="{{ route('perguntas.edit', [$perguntas->id, 'action' => 'delete']) }}" id="del-perguntas-{{ $perguntas->id }}" class="btn btn-danger float-right">{{ __('app.delete') }}</a>
                     @endcan
                 </div>
             </form>

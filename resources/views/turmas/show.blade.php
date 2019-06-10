@@ -38,7 +38,7 @@ function gerarRelatrio() {
         var doc = new jsPDF();
 
         doc.setFontSize(22);	
-        doc.text(20, 30, 'Relatorio de projetos da Turma {{$turma->name}}' );
+        doc.text(20, 30, 'Relatorio de projetos da Turma: {{$turma->name}}' );
         
         
         data = JSON.parse(data);
@@ -52,10 +52,10 @@ function gerarRelatrio() {
                 media = element.media
             }
             doc.setFontSize(16);
-            doc.text(20, 30 + (i * 10), "nome do Projeto "+ element.nome);
+            doc.text(20, 30 + (i * 10), "nome do Projeto: "+ element.nome);
             i++;
             doc.setFontSize(10)
-            doc.text(20, 30 + (i * 10), "Media " + media);
+            doc.text(20, 30 + (i * 10), "Media: " + media);
             i++;
             doc.text(20, 30 + (i * 10), "Professores: " + element.professor.join(', '));
             i++;

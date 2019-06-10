@@ -60,8 +60,11 @@ class PerguntasController extends Controller
      * @param  \App\Perguntas  $perguntas
      * @return \Illuminate\View\View
      */
-    public function show(Perguntas $perguntas)
+    public function show($reques)
     {
+       
+        // var_dump($reques);exit;
+        $perguntas = Perguntas::findOrFail($reques);
         return view('perguntas.show', compact('perguntas'));
     }
 
@@ -71,8 +74,10 @@ class PerguntasController extends Controller
      * @param  \App\Perguntas  $perguntas
      * @return \Illuminate\View\View
      */
-    public function edit(Perguntas $perguntas)
+    public function edit($perguntas)
     {
+        
+        $perguntas = Perguntas::findOrFail($perguntas);
         $this->authorize('update', $perguntas);
 
         return view('perguntas.edit', compact('perguntas'));
@@ -85,15 +90,18 @@ class PerguntasController extends Controller
      * @param  \App\Perguntas  $perguntas
      * @return \Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Perguntas $perguntas)
+    public function update(Request $request, $perguntas)
     {
-        $this->authorize('update', $perguntas);
+        // $this->authorize('update', $perguntas);
 
         $perguntasData = $request->validate([
             'name'        => 'required|max:60',
             'description' => 'nullable|max:255',
         ]);
-        $perguntas->update($perguntasData);
+
+        // var_dump($perguntasData, $perguntas);exit;
+        Perguntas::whereId($perguntas)->update($perguntasData);
+        // $perguntas->update($perguntasData);
 
         return redirect()->route('perguntas.show', $perguntas);
     }
@@ -105,16 +113,11 @@ class PerguntasController extends Controller
      * @param  \App\Perguntas  $perguntas
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Request $request, Perguntas $perguntas)
+    public function destroy($pergunta)
     {
-        $this->authorize('delete', $perguntas);
-
-        $request->validate(['perguntas_id' => 'required']);
-
-        if ($request->get('perguntas_id') == $perguntas->id && $perguntas->delete()) {
-            return redirect()->route('perguntas.index');
-        }
-
-        return back();
+        
+        $perguntas = Perguntas::findOrFail($pergunta);
+        $perguntas->delete();
+        return redirect('/perguntas');
     }
 }

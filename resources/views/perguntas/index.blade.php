@@ -38,11 +38,11 @@
                     @foreach($perguntas as $key => $pergunta)
                     <tr>
                         <td class="text-center">{{ $pergunta->id }}</td>
-                        <td>{!! $pergunta->name_link !!}</td>
+                        <td>{!! $pergunta->name !!}</td>
                         <td>{{ $pergunta->description }}</td>
                         <td class="text-center">
                             @can('view', $pergunta)
-                                <a href="{{ route('perguntas.show', $pergunta) }}" id="show-perguntas-{{ $pergunta->id }}">{{ __('app.show') }}</a>
+                                <a href="{{ route('perguntas.show', $pergunta->id) }}" id="show-perguntas-{{ $pergunta->id }}">{{ __('app.show') }}</a>
                             @endcan
                         </td>
                     </tr>
