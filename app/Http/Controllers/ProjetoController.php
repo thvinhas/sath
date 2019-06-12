@@ -27,7 +27,7 @@ class ProjetoController extends Controller
             return view('projetos.index', compact('projetos'));
         } else if(Auth::user()->perfil == 'professor') {
             $projetos = Auth::user()->projetosProfessores;
-            return view('projetos.aluno', compact('projetos'));
+            return view('projetos.professor', compact('projetos'));
         }else if(Auth::user()->perfil == 'aluno') {
             $projetos = Auth::user()->projetosAlunos;
             return view('projetos.aluno', compact('projetos'));
