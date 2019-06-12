@@ -26,7 +26,7 @@ class ProjetoController extends Controller
             $projetos = $projetoQuery->paginate(25);
             return view('projetos.index', compact('projetos'));
         } else if(Auth::user()->perfil == 'professor') {
-            $projetos = Auth::user()->projetosAlunos;
+            $projetos = Auth::user()->projetosProfessores;
             return view('projetos.aluno', compact('projetos'));
         }else if(Auth::user()->perfil == 'aluno') {
             $projetos = Auth::user()->projetosAlunos;
