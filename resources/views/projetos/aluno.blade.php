@@ -23,7 +23,7 @@
                     @foreach($projetos as $key => $projeto)
                     <tr>
                         <td class="text-center">{{ $key }}</td>
-                        <td>{ $projeto->name }</td>
+                        <td>{{ $projeto->name }}</td>
                         <td>{{ $projeto->media }}</td>
                     </tr>
                     @endforeach

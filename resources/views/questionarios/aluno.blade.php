@@ -34,7 +34,7 @@
                     @foreach($questionarios as $key => $questionario)
                     <tr>
                         <td class="text-center">{{ $questionarios->firstItem() + $key }}</td>
-                        <td>{!! $questionario->name_link !!}</td>
+                        <td>{{ $questionario->name }}</td>
                         <td class="text-center">
                             @can('view', $questionario)
                                 <a href="{{ route('questionario.respostas', ['id' => $questionario->id]) }}" id="show-questionario-{{ $questionario->id }}">{{ __('app.show') }}</a>

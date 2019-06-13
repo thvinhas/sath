@@ -32,7 +32,7 @@
             Object.keys(response).forEach(function(key) {
               pergunta.push(response[key].nome);
                 // Labels.push(data.stockName);
-                resposta.push(response[key].resposta);
+                resposta.push(response[key].resposta/response[key].qtd);
             });
             var ctx = document.getElementById("myChart").getContext('2d');
                 var myChart = new Chart(ctx, {
@@ -40,7 +40,7 @@
                   data: {
                       labels:pergunta,
                       datasets: [{
-                          label: 'Perguntas',
+                          label: 'Resposta',
                           data: resposta,
                           borderWidth: 1
                       }]

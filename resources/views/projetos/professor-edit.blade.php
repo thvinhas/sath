@@ -13,7 +13,7 @@
                 <input type="hidden" name="id_projeto" value="{{$projeto->id}}">
                     <div class="form-group">
                         <label for="nota" class="form-label">nota <span class="form-required">*</span></label>
-                        <input id="nota" type="text" class="form-control{{ $errors->has('nota') ? ' is-invalid' : '' }}" name="nota" required>
+                        <input id="nota" type="number" min="1" max="10" class="form-control{{ $errors->has('nota') ? ' is-invalid' : '' }}" name="nota" required>
                     </div>
                 </div>
                 <div class="card-footer">

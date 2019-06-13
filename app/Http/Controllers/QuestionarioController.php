@@ -198,8 +198,9 @@ class QuestionarioController extends Controller
                 // var_dump($resultado);exit;
                 if(isset($resposta[$resultado->pergunta_id])) {
                     $resposta[$resultado->pergunta_id]['resposta'] += $resultado->resposta;
+                    $resposta[$resultado->pergunta_id]['qtd'] ++;
                 }else {
-                    $resposta[$resultado->pergunta_id] = ['nome' => $resultado->name, 'resposta'=> $resultado->resposta];
+                    $resposta[$resultado->pergunta_id] = ['nome' => $resultado->name, 'resposta'=> $resultado->resposta, 'qtd'=>1];
                 }
             }
 

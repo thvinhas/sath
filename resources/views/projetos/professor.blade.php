@@ -24,7 +24,7 @@
                     @foreach($projetos as $key => $projeto)
                     <tr>
                         <td class="text-center">{{ $key }}</td>
-                        <td>{!! $projeto->name_link !!}</td>
+                        <td>{{ $projeto->name }}</td>
                         <td>{{ $projeto->description }}</td>
                         <td class="text-center">
                             @can('view', $projeto)
