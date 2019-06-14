@@ -4,11 +4,11 @@ return [
     // Labels
     'table_no'          => '#',
     'total'             => 'Total',
-    'action'            => 'Actions',
+    'action'            => 'Ações',
     'show_detail_title' => 'View :name :type detail',
 
     // Actions
-    'show'           => 'Ver mais',
+    'show'           => 'Detalhes',
     'edit'           => 'Editar',
     'delete'         => 'Deletar',
     'cancel'         => 'Cancelar',

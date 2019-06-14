@@ -5,7 +5,7 @@
 @section('content')
 <div class="mb-3">
 
-<h1 class="page-title">Relatorio do questionario {{$questionario->name}}</h1>
+<h1 class="page-title">Gráfico do questionário de {{$questionario->name}}</h1>
 </div>
 
 <div class="row">
@@ -42,15 +42,19 @@
                       datasets: [{
                           label: 'Resposta',
                           data: resposta,
-                          borderWidth: 1
+                          borderWidth: 3
                       }]
                   },
                   options: { maintainAspectRatio: false,
                       scales: {
                           yAxes: [{
                               ticks: {
-                                  beginAtZero:true
+                                  beginAtZero:true,
+                                  suggestedMax: 10
                               }
+                          }],
+                          xAxes: [{
+                            display: false, //this will remove all the x-axis grid lines
                           }]
                       }
                   }

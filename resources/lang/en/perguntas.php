@@ -29,5 +29,5 @@ return [
 
     // Attributes
     'name'           => 'Nome da Pergunta',
-    'description'    => 'Descrição da Perguntas',
+    'description'    => 'Departamento',
 ];

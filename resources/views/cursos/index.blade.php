@@ -4,12 +4,16 @@
 
 @section('content')
 <div class="mb-3">
+
+    
+    <h1 class="page-title">{{ __('curso.list') }}</h1> 
     <div class="float-right">
         @can('create', new App\Curso)
             <a href="{{ route('cursos.create') }}" class="btn btn-success">{{ __('curso.create') }}</a>
         @endcan
     </div>
-    <h1 class="page-title">{{ __('curso.list') }} <small>{{ __('app.total') }} : {{ $cursos->total() }} {{ __('curso.curso') }}</small></h1>
+    <h2><small>{{ __('app.total') }} : {{ $cursos->total() }} {{ __('curso.curso') }}</small></h2>
+
 </div>
 
 <div class="row">
@@ -49,7 +53,9 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="card-body">{{ $cursos->appends(Request::except('page'))->render() }}</div>
+            <div class="card-body">{{ $cursos->appends(Request::except('page'))->render() }}
+                
+            </div>
         </div>
     </div>
 </div>

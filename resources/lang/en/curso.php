@@ -2,8 +2,8 @@
 
 return [
     // Labels
-    'curso'     => 'Curso',
-    'list'           => 'Lista de Cursos',
+    'curso'     => 'cursos',
+    'list'           => 'CURSOS',
     'search'         => 'Buscar Curso',
     'search_text'    => 'Name ...',
     'all'            => 'Todos os Curso',
@@ -15,7 +15,7 @@ return [
     'back_to_index'  => 'Voltar para lista de Cursos',
 
     // Actions
-    'create'         => 'Cadastrar novo Curso',
+    'create'         => 'Cadastrar Curso',
     'created'        => 'Curso criado com sucesso.',
     'show'           => 'Detalhes do Curso',
     'edit'           => 'Editar Curso',

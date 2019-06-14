@@ -164,12 +164,19 @@ class QuestionarioController extends Controller
     {
         $perguntas = $request->get('name');
         foreach ($perguntas as $key => $value) {
-            $resultado = new Resultado();
-            $resultado->pergunta_id = $key;
-            $resultado->Questionario_id = $request->get('questionario');
-            $resultado->Aluno_id = Auth::user()->id;
-            $resultado->resposta =$value;
-            $resultado->save();
+            $resultado = Resultado::where('pergunta_id', "=", $key)->where('Questionario_id', "=", $request->get('questionario'))->where("Aluno_id","=", Auth::user()->id)->first();
+           if ($resultado != null) {
+            //    dd($resultado->id);
+            //    $resultado->resposta =$value;
+               $resultado->update(['resposta' => $value]);
+           }else {
+                $resultado = new Resultado();
+                $resultado->pergunta_id = $key;
+                $resultado->Questionario_id = $request->get('questionario');
+                $resultado->Aluno_id = Auth::user()->id;
+                $resultado->resposta =$value;
+                $resultado->save();
+           }
 
         }
 
@@ -185,13 +192,17 @@ class QuestionarioController extends Controller
 
     public function getDados(Request $request) {
 
+        DB::enableQueryLog();
+
+
         $query = DB::table('resposta')
             ->where('resposta.Questionario_id', $request->get('questionarioId'))
-            ->join('perguntas', 'resposta.id', '=', 'perguntas.id')
-            ->join('questionarios', 'resposta.id', '=', 'questionarios.id')
+            ->join('perguntas', 'resposta.pergunta_id', '=', 'perguntas.id')
+            ->join('questionarios', 'resposta.Questionario_id', '=', 'questionarios.id')
             ->select('resposta.*', 'perguntas.name')
             ->get();
             // var_dump($query);exit();
+            // dd(DB::getQueryLog());
 
             $resposta = [];
             foreach($query as $resultado) {
@@ -200,7 +211,7 @@ class QuestionarioController extends Controller
                     $resposta[$resultado->pergunta_id]['resposta'] += $resultado->resposta;
                     $resposta[$resultado->pergunta_id]['qtd'] ++;
                 }else {
-                    $resposta[$resultado->pergunta_id] = ['nome' => $resultado->name, 'resposta'=> $resultado->resposta, 'qtd'=>1];
+                    $resposta[$resultado->pergunta_id] = ['nome' => $resultado->name, 'resposta'=> $resultado->resposta, 'qtd'=> 1];
                 }
             }
 
